@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
-import mainReducer from './mainReducer';
+
+import todos from './todos';
 
 export default combineReducers({
-  monitor: mainReducer,
+  todos,
 });

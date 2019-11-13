@@ -1,12 +1,10 @@
 const path = require('path');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const TerserPlugin = require('terser-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { StatsWriterPlugin } = require('webpack-stats-plugin');
-const autoprefixer = require('autoprefixer');
 
 const baseConfig = require('./webpack.config.base');
 
@@ -17,45 +15,6 @@ module.exports = merge(baseConfig, {
     filename: 'bundle.[chunkhash].js',
     path: path.resolve(__dirname, '../dist/public'),
     publicPath: '/',
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(sass|scss|css)$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: '../',
-            },
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-            },
-          },
-          {
-            loader: 'resolve-url-loader',
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              plugins: () => [
-                autoprefixer,
-              ],
-              sourceMap: true,
-            },
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true,
-            },
-          },
-        ],
-      },
-    ],
   },
   optimization: {
     minimizer: [
@@ -78,23 +37,24 @@ module.exports = merge(baseConfig, {
       }),
     ],
   },
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+    ],
+  },
   plugins: [
     new CompressionPlugin(),
+    new HtmlWebPackPlugin({
+      template: '../index.html',
+    }),
     new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
       },
-    }),
-    new StatsWriterPlugin({
-      // filename: 'stats.json',
-      stats: {
-        all: false,
-        assets: true,
-      },
-    }),
-    new MiniCssExtractPlugin({
-      filename: 'styles.[chunkhash].css',
     }),
   ],
 

@@ -1,47 +1,24 @@
-const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
-const nodeExternals = require('webpack-node-externals');
+const merge = require('webpack-merge');
+const webpackNodeExternals = require('webpack-node-externals');
 
-module.exports = {
+const baseConfig = require('./webpack.config.base');
+
+module.exports = merge(baseConfig, {
   mode: 'production',
-  entry: './frontend/app/server.js',
-  externals: [nodeExternals()],
-  output: {
-    path: path.resolve(__dirname, '../dist'),
-    filename: 'server.js',
-    publicPath: '/',
-  },
   target: 'node',
-  optimization: {
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          ecma: 5,
-          warnings: false,
-          parse: {},
-          compress: {},
-          mangle: true,
-          module: false,
-          output: null,
-          toplevel: false,
-          nameCache: null,
-          ie8: false,
-          keep_classnames: undefined,
-          keep_fnames: false,
-          safari10: false,
-        },
-      }),
-    ],
+  entry: './src/server.js',
+  externals: [webpackNodeExternals()],
+  output: {
+    filename: 'server.js',
+    path: path.resolve(__dirname, '../dist'),
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
+        test: /\.scss$/,
+        use: 'null-loader',
       },
     ],
   },
-};
+});
