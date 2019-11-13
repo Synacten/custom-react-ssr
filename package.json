@@ -1,0 +1,71 @@
+{
+  "name": "fullstack-webpack-bolilerplate",
+  "version": "1.0.0",
+  "description": "boilerplate for react, redux, express, ssr",
+  "main": "index.js",
+  "scripts": {
+    "dev:back": "NODE_ENV='development' nodemon index.js",
+    "dev:front": "webpack-dev-server --config ./webpack/webpack.config.client.js --watch --open --mode development",
+    "build:front": "NODE_ENV='production' webpack -p --config ./webpack/webpack.config.client.js --mode production --module-bind js=babel-loader",
+    "build:back": "NODE_ENV='production' rm -rf ./dist && webpack -p --config ./webpack/webpack.config.server.js --mode production --module-bind js=babel-loader",
+    "build:all": "npm run build:back && npm run build:front",
+    "start": "NODE_ENV='production' node ./dist/server.js"
+  },
+  "author": "Synacten",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "@babel/preset-react": "^7.0.0",
+    "autoprefixer": "^9.6.1",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.2.0",
+    "eslint": "^6.4.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "file-loader": "^4.2.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "img-loader": "^3.0.1",
+    "mini-css-extract-plugin": "^0.8.0",
+    "node-sass": "^4.12.0",
+    "nodemon": "^1.19.2",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "postcss-loader": "^3.0.0",
+    "resolve-url-loader": "^3.1.0",
+    "sass-loader": "^8.0.0",
+    "terser-webpack-plugin": "^2.1.0",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.1",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.6.0",
+    "@babel/register": "^7.6.2",
+    "axios": "^0.19.0",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "history": "^4.10.1",
+    "morgan": "^1.9.1",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-facebook-share-link": "^1.0.4",
+    "react-helmet": "^5.2.1",
+    "react-redux": "^7.1.1",
+    "react-router-config": "^5.1.1",
+    "react-router-dom": "^5.0.1",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0",
+    "serialize-javascript": "^2.1.0"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  }
+}

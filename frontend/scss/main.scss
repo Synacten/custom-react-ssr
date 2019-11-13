@@ -1,0 +1,20 @@
+@import './normalize.scss';
+
+.navbar{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    background-color: rgb(209, 255, 237);
+    ul{
+        display: flex;
+        width: 90%;
+        margin: 0 auto;
+        li{
+            display: flex;
+            justify-content: space-evenly;
+            a{
+                width: 50px;
+            }
+        }
+    }
+}
