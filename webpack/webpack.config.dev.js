@@ -8,6 +8,14 @@ const baseConfig = require('./webpack.config.base');
 module.exports = merge(baseConfig, {
   mode: 'development',
   entry: './src/client.js',
+  devServer: {
+    contentBase: './public',
+    hot: true,
+    port: 4200,
+    host: 'localhost',
+    open: true,
+    historyApiFallback: true,
+  },
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, '../dist/public'),
@@ -28,13 +36,5 @@ module.exports = merge(baseConfig, {
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
-  devServer: {
-    contentBase: './public',
-    hot: true,
-    port: 4200,
-    host: '192.168.7.39',
-    open: true,
-    historyApiFallback: true,
-  },
   devtool: 'inline-source-map',
 });
