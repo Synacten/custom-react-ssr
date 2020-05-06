@@ -12,11 +12,14 @@ const baseConfig = require('./webpack.config.base');
 
 module.exports = merge(baseConfig, {
   mode: 'production',
-  entry: './src/client.js',
+  entry: './src/client.tsx',
   output: {
     filename: 'bundle.[chunkhash].js',
     path: path.resolve(__dirname, '../dist/public'),
     publicPath: '/',
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
   module: {
     rules: [

@@ -7,7 +7,7 @@ const baseConfig = require('./webpack.config.base');
 
 module.exports = merge(baseConfig, {
   mode: 'development',
-  entry: './src/client.js',
+  entry: './src/client.tsx',
   devServer: {
     contentBase: './public',
     hot: true,
@@ -15,6 +15,9 @@ module.exports = merge(baseConfig, {
     host: 'localhost',
     open: true,
     historyApiFallback: true,
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
   output: {
     filename: 'bundle.js',
