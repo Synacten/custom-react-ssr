@@ -6,9 +6,17 @@ import reducers from './reducers';
 
 const middleware = [thunk];
 
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any;
+    __PRELOADED_STATE__: any;
+  }
+}
+
+
 const composeEnhancers = typeof window !== 'undefined'
   ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    : compose; // eslint-disable-line
+  : compose;
 
 let state;
 if (typeof window !== 'undefined') {

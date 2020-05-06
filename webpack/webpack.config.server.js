@@ -7,7 +7,7 @@ const baseConfig = require('./webpack.config.base');
 module.exports = merge(baseConfig, {
   mode: 'production',
   target: 'node',
-  entry: './src/server.ts',
+  entry: './src/server.js',
   externals: [webpackNodeExternals()],
   output: {
     filename: 'server.js',

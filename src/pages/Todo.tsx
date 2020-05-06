@@ -1,16 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, FC } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
+import { getTestData } from '../store/actions/root-actions';
+import { TodoTypes } from '../store/types/root-types';
 
-import { fetchTodos } from '../store/actions';
+interface TodoComponentTypes {
+  getTestData: () => Promise<void>;
+  data: TodoTypes[];
+}
 
-// eslint-disable-next-line no-shadow
-const Todo = ({ fetchTodos, todos }) => {
+const Todo: FC<TodoComponentTypes> = ({ getTestData: _getTestData, data }) => {
   useEffect(() => {
-    fetchTodos();
+    _getTestData();
   }, []);
-
   return (
     <div>
       <Helmet>
@@ -21,22 +24,24 @@ const Todo = ({ fetchTodos, todos }) => {
       <h1>Todo</h1>
       <Link to="/">Home</Link>
       <br />
-      {todos.map((todo) => (
-        <p key={todo.id}>
-          {todo.id} {todo.title}
+      {data.map((item) => (
+        <p key={item.id}>
+          {item.id}
+          {' '}
+          {item.title}
         </p>
       ))}
     </div>
   );
 };
 
-const loadData = (store, param) => store.dispatch(fetchTodos(param));
+const loadData = (store: any, params: any) => store.dispatch(getTestData(params));
 
-const mapStateToProps = (state) => ({
-  todos: state.todos,
+const mapStateToProps = (state: any) => ({
+  data: state.root.data,
 });
 
-const mapDispatchToProps = { fetchTodos };
+const mapDispatchToProps = { getTestData };
 
 export default {
   component: connect(
